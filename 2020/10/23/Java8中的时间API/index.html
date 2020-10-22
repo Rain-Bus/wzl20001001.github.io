@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Java8中的时间API"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Falle-Angle">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=1.1" />
+
+
+
+<link rel="canonical" href="http://blog.fallen-ange.com/2020/10/23/Java8中的时间API/"/>
+
+
+<meta name="description" content="将 java.util.Date 设定为可变类型，以及 SimpleDateFormat 的非线程安全使其应用非常受限。之后就在 Java8 上添加了新特性。 java.time中所有的类都是不可变对象。  Instant: 瞬时实例&#x2F;时间戳。 LocalDate: 本地日期，不含具体时间。 LocalTime: 本地时间，不含具体日期。 LocalDateTime: 组合日期和时间，不包含时差和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8中的时间API">
+<meta property="og:url" content="http://blog.fallen-ange.com/2020/10/23/Java8%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4API/index.html">
+<meta property="og:site_name" content="Falle-Angle">
+<meta property="og:description" content="将 java.util.Date 设定为可变类型，以及 SimpleDateFormat 的非线程安全使其应用非常受限。之后就在 Java8 上添加了新特性。 java.time中所有的类都是不可变对象。  Instant: 瞬时实例&#x2F;时间戳。 LocalDate: 本地日期，不含具体时间。 LocalTime: 本地时间，不含具体日期。 LocalDateTime: 组合日期和时间，不包含时差和">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-22T16:31:44.764Z">
+<meta property="article:modified_time" content="2020-10-22T16:34:14.270Z">
+<meta property="article:author" content="Fallen-Angle">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  <script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?47915586c08e44d8a2f1d0f7a2f1d7fd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+    <title> Java8中的时间API - Falle-Angle </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Falle-Angle</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives/">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about/">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Java8中的时间API
+        
+      </h1>
+
+      <time class="post-time">
+          Oct 23 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>将 <code>java.util.Date</code> 设定为可变类型，以及 <code>SimpleDateFormat</code> 的非线程安全使其应用非常受限。之后就在 Java8 上添加了新特性。</p>
+<p><code>java.time</code>中所有的类都是不可变对象。</p>
+<ul>
+<li>Instant: 瞬时实例/时间戳。</li>
+<li>LocalDate: 本地日期，不含具体时间。</li>
+<li>LocalTime: 本地时间，不含具体日期。</li>
+<li>LocalDateTime: 组合日期和时间，不包含时差和时间。</li>
+<li>ZoneDateTime: 最完整的日期和时间。包含时区和相对于UTC的时差。</li>
+<li>ZoneOffSet/ZoneId: 更为简单的操作时区。</li>
+<li>DateTimeFormatter: 全新的时间格式化和解析类。</li>
+<li>Year/Month: 只存储年月信息。</li>
+<li>MonthDay/YearMonth: 记录年月/月日，用来指定特殊日期(如纪念日，到期月份)。</li>
+<li>Clock: 获取当时的时间戳，或当前时区下的日期时间信息。</li>
+</ul>
+<h2 id="LocalDate">LocalDate</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建实例</span></span><br><span class="line">LocalDate date = LocalDate.of(<span class="number">2020</span>, <span class="number">10</span>, <span class="number">1</span>);	<span class="comment">// 通过of方法创建LocalDate实例</span></span><br><span class="line">LocalDate tempDate = LocalDate.now();		<span class="comment">// 通过now()方法获取当前时间</span></span><br><span class="line">LocalDate date = LocalDate.from(LocalDateTime.now());	<span class="comment">// 从更具体的时间中获取</span></span><br><span class="line"><span class="comment">// 获取信息</span></span><br><span class="line">System.out.println(date.getYear());			<span class="comment">// 通过get方法获取当前年份等基本信息</span></span><br><span class="line">System.out.println(date.getDayOfYear());	<span class="comment">// 可以通过getDayOf方法获取一些更高级的信息。</span></span><br><span class="line">System.out.println(date.lengthOfYear());	<span class="comment">// 获取年份或者月份的天数</span></span><br><span class="line"><span class="comment">// 判断信息</span></span><br><span class="line">System.out.println(date.isAfter(tempDate));							<span class="comment">// 比较两个时间</span></span><br><span class="line">System.out.println(date.isLeapYear());								<span class="comment">// 判断是否为闰年</span></span><br><span class="line">System.out.println(date.isEqual(tempDate));							<span class="comment">// 判断两个时间是否相同</span></span><br><span class="line">System.out.println(date.isSupported(ChronoField.SECOND_OF_DAY));	<span class="comment">// 判断实例是否支持某单位(false ，因为LocalDate不支持时间)</span></span><br><span class="line"><span class="comment">// 计算日期</span></span><br><span class="line">System.out.println(date.minus(<span class="number">1</span>, ChronoUnit.DAYS));	<span class="comment">// 指定单位计算</span></span><br><span class="line">System.out.println(date.minusDays(<span class="number">1</span>));				<span class="comment">// 快捷计算日期</span></span><br><span class="line">System.out.println(date.plusMonths(<span class="number">1</span>));</span><br><span class="line"><span class="comment">// 更改日期信息</span></span><br><span class="line">System.out.println(date.with(ChronoField.DAY_OF_YEAR, <span class="number">45</span>));		<span class="comment">// 指定单位更改</span></span><br><span class="line">System.out.println(date.withYear(<span class="number">2000</span>));						<span class="comment">// 指定字段更改</span></span><br><span class="line">System.out.println(date.with(MonthDay.now()));					<span class="comment">// 通过部分时间更改</span></span><br><span class="line"><span class="comment">// 格式化时间</span></span><br><span class="line">System.out.println(date.format(DateTimeFormatter.ofPattern(<span class="string">"yyyy MM dd"</span>)));	<span class="comment">// 给定格式格式化时间字符串</span></span><br><span class="line">System.out.println(date.format(DateTimeFormatter.ISO_DATE));				<span class="comment">// 使用内置的时间格式格式化时间 </span></span><br><span class="line"><span class="comment">// 解析时间</span></span><br><span class="line">LocalDate.parse(<span class="string">"20201001"</span>, DateTimeFormatter.ofPattern(<span class="string">"yyyyMMdd"</span>));</span><br><span class="line"><span class="comment">// 转换类</span></span><br><span class="line">System.out.println(date.atStartOfDay());		<span class="comment">// 设置时间为0时整(返回的是LocalDateTime对象)</span></span><br><span class="line">System.out.println(date.atTime(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>));			<span class="comment">// 设置时间为指定时间</span></span><br></pre></td></tr></table></figure>
+<h2 id="LocalTime">LocalTime</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LocalTime time = LocalTime.now();</span><br><span class="line">LocalTime time = LocalTime.of(<span class="number">12</span>, <span class="number">12</span>, <span class="number">12</span>);</span><br><span class="line">time.withNano(<span class="number">12</span>);			<span class="comment">// 最多支持到纳秒 (12:12:12.000000012)</span></span><br><span class="line"><span class="comment">// 大多数操作与LocalDateTime类似。例如在获取一天中的秒数。或者计算时间。</span></span><br></pre></td></tr></table></figure>
+<h2 id="LocalDateTime">LocalDateTime</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LocalDateTime dateTime = LocalDateTime.now();</span><br><span class="line">dateTime.toInstant(ZoneOffset.UTC);		<span class="comment">// 将LocalDateTime转换为时间戳</span></span><br><span class="line">System.out.println(dateTime.toLocalDate());	<span class="comment">// 转换为LocalDate</span></span><br></pre></td></tr></table></figure>
+<h2 id="Year-Month">Year/Month</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建实例</span></span><br><span class="line">Year year = Year.now();</span><br><span class="line">Year year = Year.of(<span class="number">2000</span>);</span><br><span class="line">Year year = Year.from(date);</span><br><span class="line">Month month = Month.of(<span class="number">1</span>);</span><br><span class="line">Month month = date.getMonth();</span><br><span class="line"><span class="comment">// 也可以通过 at 方法来指定更具体的对象。增减，比较等方法依旧可用。</span></span><br></pre></td></tr></table></figure>
+<h2 id="YearMonth-MonthDay">YearMonth/MonthDay</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建实例</span></span><br><span class="line">YearMonth yearMonth = YearMonth.now();</span><br><span class="line">YearMonth yearMonth = YearMonth.of(<span class="number">2000</span>, <span class="number">10</span>);</span><br><span class="line">YearMonth yearMonth = YearMonth.from(date);</span><br><span class="line"><span class="comment">// 同样可以使用 at 方法指定等具体的时间，用 with 方法更改时间，也可以使用增减、判断和获取等方法。</span></span><br></pre></td></tr></table></figure>
+<h2 id="Clock-Instant">Clock/Instant</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建实例</span></span><br><span class="line">Clock clock = Clock.systemUTC();			<span class="comment">// 获取UTC的时间戳</span></span><br><span class="line">Clock clock = Clock.systemDefaultZone();	<span class="comment">// 获取系统默认时区时间戳</span></span><br><span class="line"><span class="comment">// 更改时区</span></span><br><span class="line">clock.withZone(ZoneId.of(<span class="string">"Asia/Shanghai"</span>));</span><br><span class="line"><span class="comment">// 获取信息</span></span><br><span class="line">clock.millis();		<span class="comment">// 获取毫秒数</span></span><br><span class="line">clock.instant();	<span class="comment">// 获取瞬时实例</span></span><br><span class="line"><span class="comment">// 创建实例</span></span><br><span class="line">Instant instant = Instant.now();</span><br><span class="line">Instant instant = Instant.ofEpochMilli(<span class="number">1603380890080L</span>);	<span class="comment">// 从世纪纪元毫秒或秒中获取。</span></span><br><span class="line"><span class="comment">// 同样可以使用 at 方法指定等具体的时间，用 with 方法更改时间，也可以使用增减、判断和获取等方法。一般只能处理与秒即相关的。</span></span><br></pre></td></tr></table></figure>
+<h2 id="ZoneId-ZoneOffSet">ZoneId/ZoneOffSet</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建实例</span></span><br><span class="line">ZoneId zoneId = ZoneId.systemDefault();	<span class="comment">// ZoneId记录了时区缩写和简写</span></span><br><span class="line">ZoneId zoneId = ZoneId.of(<span class="string">"Asia/Shanghai"</span>);</span><br><span class="line">ZoneOffset zoneOffset = ZoneOffset.of(<span class="string">"+5"</span>);	<span class="comment">// ZoneOffSet 指定与UTC时区的相对时间差</span></span><br><span class="line">ZoneOffset zoneOffset = ZoneOffset.of(<span class="string">"+05:30:30"</span>);</span><br><span class="line"><span class="comment">// 获取信息</span></span><br><span class="line">zoneId.getRules();	<span class="comment">// 获取Rules：ZoneRules[currentStandardOffset=+08:00]</span></span><br><span class="line">zoneOffset.getTotalSeconds();	<span class="comment">// 获取相较于UTC总共的时间差</span></span><br></pre></td></tr></table></figure>
+<h2 id="ZonedDateTime">ZonedDateTime</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建实例</span></span><br><span class="line">ZonedDateTime zonedDateTime = ZonedDateTime.now();</span><br><span class="line">ZonedDateTime zonedDateTime = ZonedDateTime.of(<span class="number">2020</span>,<span class="number">10</span>,<span class="number">01</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,ZoneId.of(<span class="string">"Asia/Shanghai"</span>));</span><br><span class="line">ZonedDateTime zonedDateTime = ZonedDateTime.of(<span class="number">2020</span>,<span class="number">10</span>,<span class="number">01</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,ZoneOffset.of(<span class="string">"+8"</span>));</span><br><span class="line"><span class="comment">// 更改时区</span></span><br><span class="line">zonedDateTime.withZoneSameLocal(ZoneId.of(<span class="string">"Z"</span>));	<span class="comment">// 更改时区，但不变更时间</span></span><br><span class="line">zonedDateTime.withZoneSameInstant(ZoneId.of(<span class="string">"Z"</span>));	<span class="comment">// 更改时区，并根据变更的时区变更时间</span></span><br><span class="line"><span class="comment">// ZoneDateTime是最全面的时间类，之前所有类含有的方法，ZoneDateTime一般都可以使用。</span></span><br></pre></td></tr></table></figure>
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/05/07/MySQL%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/">
+        <span class="next-text nav-default">MySQL完整性约束</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2018 -
+    
+    2020
+    <span class="footer-author">Fallen-Angle.</span><br>
+	<span>角落之中，窥视天空</span><br>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
