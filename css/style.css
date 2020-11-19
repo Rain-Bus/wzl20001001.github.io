@@ -588,7 +588,8 @@ h6 {
       color: #4D89FB;
       word-break: break-all; }
       .post .post-content a:hover {
-        border-bottom: 1px solid #4D89FB; }
+        color: green;
+        text-decoration: none; }
       .post .post-content a.fancybox {
         border: 0; }
     .post .post-content blockquote {
@@ -607,6 +608,8 @@ h6 {
       max-width: 100%;
       margin: 10px 0;
       border-spacing: 0; }
+      .post .post-content > table .about_td {
+        border: 0px solid #ccc; }
       .post .post-content > table th, .post .post-content > table td {
         padding: 5px 15px;
         border: 1px double #f0f0f0;

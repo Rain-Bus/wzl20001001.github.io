@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="MySQL是怎样使用的：从零蛋开始学习MySQL"/>
+
+
+
+
+  <meta name="keywords" content="MySQL,Juejin Book," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Falle-Angle">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=1.1" />
+
+
+
+<link rel="canonical" href="http://blog.fallen-ange.com/2020/11/19/MySQL是怎样使用的：从零蛋开始学习MySQL/"/>
+
+
+<meta name="description" content="整型数    类型 占用的存储空间（单位：字节） 无符号数取值范围 有符号数取值范围 含义     TINYINT 1 0 ~ 2⁸-1 -2⁷ ~ 2⁷-1 非常小的整数   SMALLINT 2 0 ~ 2¹⁶-1 -2¹⁵ ~ 2¹⁵-1 小的整数   MEDIUMINT 3 0 ~ 2²⁴-1 -2²³ ~ 2²³-1 中等大小的整数   INT（别名：INTEGER） 4 0 ~ 2³²">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL是怎样使用的：从零蛋开始学习MySQL">
+<meta property="og:url" content="http://blog.fallen-ange.com/2020/11/19/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E7%9A%84%EF%BC%9A%E4%BB%8E%E9%9B%B6%E8%9B%8B%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0MySQL/index.html">
+<meta property="og:site_name" content="Falle-Angle">
+<meta property="og:description" content="整型数    类型 占用的存储空间（单位：字节） 无符号数取值范围 有符号数取值范围 含义     TINYINT 1 0 ~ 2⁸-1 -2⁷ ~ 2⁷-1 非常小的整数   SMALLINT 2 0 ~ 2¹⁶-1 -2¹⁵ ~ 2¹⁵-1 小的整数   MEDIUMINT 3 0 ~ 2²⁴-1 -2²³ ~ 2²³-1 中等大小的整数   INT（别名：INTEGER） 4 0 ~ 2³²">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://blog.fallen-ange.com/.com//16d6779ae10315f9.jpg">
+<meta property="og:image" content="http://blog.fallen-ange.com/.com//16d6779ad10263a2.jpg">
+<meta property="og:image" content="http://blog.fallen-ange.com/.com//16d6779ad21ff99f.jpg">
+<meta property="og:image" content="http://blog.fallen-ange.com/.com//16d6779ad395a41d.jpg">
+<meta property="article:published_time" content="2020-11-19T06:48:17.000Z">
+<meta property="article:modified_time" content="2020-11-19T06:58:23.020Z">
+<meta property="article:author" content="Fallen-Angle">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Juejin Book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.fallen-ange.com/.com//16d6779ae10315f9.jpg">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  <script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?47915586c08e44d8a2f1d0f7a2f1d7fd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+    <title> MySQL是怎样使用的：从零蛋开始学习MySQL - Falle-Angle </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Falle-Angle</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives/">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about/">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          MySQL是怎样使用的：从零蛋开始学习MySQL
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 19 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h3 id="整型数">整型数</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">占用的存储空间（单位：字节）</th>
+<th style="text-align:center">无符号数取值范围</th>
+<th style="text-align:center">有符号数取值范围</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>TINYINT</code></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0 ~ 2⁸-1</td>
+<td style="text-align:center">-2⁷ ~ 2⁷-1</td>
+<td style="text-align:center">非常小的整数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SMALLINT</code></td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0 ~ 2¹⁶-1</td>
+<td style="text-align:center">-2¹⁵ ~ 2¹⁵-1</td>
+<td style="text-align:center">小的整数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MEDIUMINT</code></td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0 ~ 2²⁴-1</td>
+<td style="text-align:center">-2²³ ~ 2²³-1</td>
+<td style="text-align:center">中等大小的整数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>INT</code>（别名：<code>INTEGER</code>）</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0 ~ 2³²-1</td>
+<td style="text-align:center">-2³¹ ~ 2³¹-1</td>
+<td style="text-align:center">标准的整数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>BIGINT</code></td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">0 ~ 2⁶⁴-1</td>
+<td style="text-align:center">-2⁶³ ~ 2⁶³-1</td>
+<td style="text-align:center">大整数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="浮点数">浮点数</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">占用的存储空间（单位：字节）</th>
+<th style="text-align:center">绝对值最小非0值</th>
+<th style="text-align:center">绝对值最大非0值</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>FLOAT</code></td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">±1.175494351E-38</td>
+<td style="text-align:center">±3.402823466E+38</td>
+<td style="text-align:center">单精度浮点数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>DOUBLE</code></td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">±2.2250738585072014E-308</td>
+<td style="text-align:center">±1.7976931348623157E+308</td>
+<td style="text-align:center">双精度浮点数</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>规定位数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FLOAT(M, D)</span><br><span class="line">DOUBLE(M, D)</span><br></pre></td></tr></table></figure>
+<p>其中 M(1~255) 代表该小数的总体有效位。 D(0~30) 代表小数位的有效位数。其中M 的值必须不小于 D 。如果不规定，就按默认的最大值进行存储。</p>
+<p>虽然可以对浮点数位数进行指定，但是存储的空间都是不变的。</p>
+<p>浮点数的结构如下，是凭借指数和尾数来进行存储的(二进制的科学计数法)，对于一些无法直接转换成二进制的数，是不精确的。</p>
+<p><img src="/.com//16d6779ae10315f9.jpg" alt="浮点数存储结构"></p>
+</blockquote>
+<h3 id="定点数">定点数</h3>
+<blockquote>
+<p>为了解决浮点数不精确的问题，定点数接将小数部分直接存储，使用时就不会出现精度损失的情况。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">占用的存储空间（单位：字节）</th>
+<th style="text-align:center">取值范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>DECIMAL(M, D)</code></td>
+<td style="text-align:center">取决于M和D</td>
+<td style="text-align:center">取决于M和D</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>定点数的存储结构如下：</p>
+<p><img src="/.com//16d6779ad10263a2.jpg" alt="定点数存储结构"></p>
+<p>其中，从小数点位置起，向前向后每九个十进制位划分为一组进行存储。</p>
+<p><img src="/.com//16d6779ad21ff99f.jpg" alt="定点数存储结构"></p>
+<p>其中十进制位数对应存储字节数如下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">组中包含的十进制位数</th>
+<th style="text-align:center">占用存储空间大小（单位：字节）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1或2</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">3或4</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">5或6</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">7或8或9</td>
+<td style="text-align:center">4</td>
+</tr>
+</tbody>
+</table>
+<p>所以这个数的存储总字节数为：2 + 4 + 2 = 8 个字节。</p>
+</blockquote>
+<h3 id="无符号数">无符号数</h3>
+<blockquote>
+<p>在原数值类型后加一个单词 <code>UNSIGNED</code> 就构成了无符号数(正数)。</p>
+<p><strong>注</strong>：无符号的整数范围比有符号数的整数的正数范围大一倍，但是受到浮点数的存储格式的影响，无符号浮点数的整数范围并不会提升。</p>
+</blockquote>
+<h3 id="日期与时间">日期与时间</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">存储空间要求</th>
+<th style="text-align:center">取值范围</th>
+<th style="text-align:center">格式</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>YEAR</code></td>
+<td style="text-align:center">1字节</td>
+<td style="text-align:center">1901~2155</td>
+<td style="text-align:center"><code>YYYY</code></td>
+<td style="text-align:center">年份值</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>DATE</code></td>
+<td style="text-align:center">3字节</td>
+<td style="text-align:center">‘1000-01-01’ ~ ‘9999-12-31’</td>
+<td style="text-align:center"><code>YYYY-MM-DD</code></td>
+<td style="text-align:center">日期值</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>TIME</code></td>
+<td style="text-align:center">3字节</td>
+<td style="text-align:center">‘-838:59:59’ ~ ‘838:59:59’</td>
+<td style="text-align:center"><code>hhh:mm:ss[.uuuuuu]</code></td>
+<td style="text-align:center">时间值</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>DATETIME</code></td>
+<td style="text-align:center">8字节</td>
+<td style="text-align:center">‘1000-01-01 00:00:00’ ～ ‘9999-12-31 23:59:59’</td>
+<td style="text-align:center"><code>YYYY-MM-DD hh:mm:ss[.uuuuuu]</code></td>
+<td style="text-align:center">日期加时间值</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>TIMESTAMP</code></td>
+<td style="text-align:center">4字节</td>
+<td style="text-align:center">‘1970-01-01 00:00:01’ ～ ‘2038-01-19 03:14:07’</td>
+<td style="text-align:center"><code>YYYY-MM-DD hh:mm:ss[.uuuuuu]</code></td>
+<td style="text-align:center">时间戳</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>MySQL5.6.4</code> 之后开始<code>TIME</code>、<code>DATETIME</code>、<code>TIMESTAMP</code>支持六位小数位秒(毫秒，微秒）。</p>
+<p><strong>例</strong>：<code>DATETIME(3)</code> 表示精确到微秒， <code>DATETIME(5)</code> 表示精确到 10 微秒，默认 <code>DATETIME</code> 为 <code>DATETIME(0)</code>，即精确到秒。</p>
+<p><img src="/.com//16d6779ad395a41d.jpg" alt="时间存储"></p>
+<p>其中占用的存储空间与定点数占用的空间类似。需要在原本的存储空间上占用额外的空间。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">保留的小数秒位数</th>
+<th style="text-align:center">额外需要的存储空间要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0字节</td>
+</tr>
+<tr>
+<td style="text-align:center">1或2</td>
+<td style="text-align:center">1字节</td>
+</tr>
+<tr>
+<td style="text-align:center">3或4</td>
+<td style="text-align:center">2字节</td>
+</tr>
+<tr>
+<td style="text-align:center">5或6</td>
+<td style="text-align:center">3字节</td>
+</tr>
+</tbody>
+</table>
+<p><strong>例</strong>：<code>DATETIME(3)</code> 需要占用的空间为 3 + 2 个字节。</p>
+<p><strong>注</strong>：<code>DATETIME</code> 中的时间部分表示的是一天内的时间(00:00:00 ~ 23:59:59)，而 <code>TIME</code> 表示的是一段时间，而且可以表示负值。</p>
+<p><code>TIMESTAMP</code>：时间戳存储的时间，可以随着时区的变化而变化。</p>
+</blockquote>
+<h3 id="字符串">字符串</h3>
+<blockquote>
+<p>不同编码方式的字符存储长度是不同的。</p>
+<p><strong>固定编码</strong>：例如 <code>ASCII</code> 采用 1 个字节来编码一个字符，<code>ucs2</code> 采用 2 个字节来编码一个字符。</p>
+<p><strong>变长编码</strong>：<code>utf8</code> 采用 <code>1~3</code> 个字节来编码一个字符，<code>gb2312</code> 采用 <code>1~2</code> 个字节来编码一个字符。<code>utf8mb4</code> 使用1~4个字节来编码一个字符(MySQL中的 <code>utf8mb4</code> 才是真正意义上的 <code>utf8</code>)。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">最大长度</th>
+<th style="text-align:center">存储空间要求</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>CHAR(M)</code></td>
+<td style="text-align:center">M个字符</td>
+<td style="text-align:center">M×W个字节</td>
+<td style="text-align:center">固定长度的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>VARCHAR(M)</code></td>
+<td style="text-align:center">M个字符</td>
+<td style="text-align:center">L+1 或 L+2 个字节</td>
+<td style="text-align:center">可变长度的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>TINYTEXT</code></td>
+<td style="text-align:center">2⁸-1 个字节</td>
+<td style="text-align:center">L+1个字节</td>
+<td style="text-align:center">非常小型的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>TEXT</code></td>
+<td style="text-align:center">2¹⁶-1 个字节</td>
+<td style="text-align:center">L+2 个字节</td>
+<td style="text-align:center">小型的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MEDIUMTEXT</code></td>
+<td style="text-align:center">2²⁴-1 个字节</td>
+<td style="text-align:center">L+3个字节</td>
+<td style="text-align:center">中等大小的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>LONGTEXT</code></td>
+<td style="text-align:center">2³²-1 个字节</td>
+<td style="text-align:center">L+4个字节</td>
+<td style="text-align:center">大型的字符串</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>M</code> 代表该数据类型最多能存储的字符数量。</p>
+<p><code>L</code> 代表实际存储的字符数量。</p>
+<p><code>W</code> 代表在该特定字符集下，编码一个字符最多需要的字节数。</p>
+<p><code>CHAR(M) </code>中如果占用的字符数不足 <code>M</code> (1~255)个，用空格补足空位，但是这样会浪费存储空间。</p>
+<p>为了解决这个问题，我们可以使用 <code>VARCHAR(M)</code> ，可以存储的字符量理论上是 <code>1~65535</code> ，但是由于 <code>MySQL</code> 中还有一个规定(表中某一行包含的所有列中存储的数据大小总共不得超过65535个字节)，所以能够容纳的字符数量是小于65535的。</p>
+<blockquote>
+<p><code>VARCHAR</code> 的组成</p>
+<ul>
+<li>
+<p>真正的长度为L的字符串内容。</p>
+</li>
+<li>
+<p>记录内容占用字节数。</p>
+<p>假设 <code>VARCHAR(M)</code> 类型采用的字符集编码一个字符最多需要 <code>W</code> 个字节，当 <code>M x W &lt; 256</code> 时需要一个字节。当 <code>M × W &gt;= 256</code> 且 <code>M × W &lt; 65536</code> 时，需要两个字节来表示占用的字节数。</p>
+</li>
+</ul>
+</blockquote>
+<p>各种 <code>TEXT</code> 类型也是变长类型，也是由实际内容和内容占用字节数组成的。但 <code>MySQL</code> 的每行至多 65535 个字节这个规定对于 <code>TEXT</code> 是不奏效的。</p>
+</blockquote>
+<h3 id="二进制类型">二进制类型</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">字节数</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>BIT(M)</code></td>
+<td style="text-align:center">近似为(M+7)/8</td>
+<td style="text-align:center">存储M个比特位的值</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>主要用于存储单个或多个比特位。</p>
+<p><code>M</code> 的取值范围为 1~64，当省略时默认为1。但是 <code>MySQL</code> 是以字节为单位存储数据的，若不足一个字节会补足为整数个字节。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">存储空间</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>BINARY(M)</code></td>
+<td style="text-align:center">M字节</td>
+<td style="text-align:center">存储M个字节</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>VARBINARY(M)</code></td>
+<td style="text-align:center">L+1 / L+2 字节</td>
+<td style="text-align:center">存储最多M个字节</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>与 <code>CHAR(M) </code>和 <code>VARCHAR(M)</code> 类似，只不过一个是用来存储字符，另一个是用来存储字节的。</p>
+</blockquote>
+<blockquote>
+<p>另外还有 <code>TINYBLOB</code> 、 <code>BLOB</code> 、 <code>MEDIUMBLOB</code> 、 <code>LONGBLOB</code> 是针对数据量很大的二进制数据提出的，比如图片、音频、压缩文件这类数据。与 <code>TEXT</code> 类似，同样，一个是用来存储字符，另一个是用来存储字节的。</p>
+</blockquote>
+<h3 id="特殊类型">特殊类型</h3>
+<blockquote>
+<p>ENUM类型</p>
+</blockquote>
+<p>枚举类型，表示在给定的字符串列表里选择一个，例如 <code>ENUM('男', '女')</code> ；</p>
+<blockquote>
+<p>SET类型</p>
+</blockquote>
+<p>集合类型，表示可以在给定的字符串列表里选择多个，例如  <code>SET('LOL', 'DOTA2', 'CS:GO')</code> ；</p>
+<blockquote>
+<p>特点</p>
+</blockquote>
+<p><code>EMUN</code> 和 <code>SET</code> 都是两种特殊的字符串类型，在从字符串列表中单选或多选元素的时候会用得到它们。</p>
+<h3 id="隐式类型转换">隐式类型转换</h3>
+<blockquote>
+<p>如果数据的类型与上下文不符合，<code>MySQL</code> 会对数据进行转换。</p>
+<p>例如：</p>
+<ol>
+<li>
+<p>把操作数类型转换为适合操作符计算的相应类型。</p>
+<p>1+‘2’ = 3</p>
+</li>
+<li>
+<p>将函数参数转换为该函数期望的类型。</p>
+<p>concat(“1”, 2) -&gt; “12”</p>
+</li>
+<li>
+<p>存储数据时，把某个值转换为某个列需要的类型。</p>
+</li>
+</ol>
+<p>注：</p>
+<ol>
+<li>
+<p><code>MySQL</code> 会尽量把值转换为表达式中需要的类型，而不是产生错误。</p>
+</li>
+<li>
+<p>在运算时会自动提升操作数的类型。</p>
+<p><code>100(TINYINT)+100(TINYINT) </code></p>
+<p>在运算过程中，<code>MySQL</code> 自动将操作数类型提升为 <code>BIGINT</code>，防止运算结果太大导致无法计算。</p>
+</li>
+</ol>
+<blockquote>
+<p>我们可以使用 <code>CAST</code> 函数对数据进行显式的转换。</p>
+</blockquote>
+</blockquote>
+<h2 id="内置函数">内置函数</h2>
+<h3 id="文本处理函数">文本处理函数</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">调用示例</th>
+<th style="text-align:center">示例结果</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>LEFT</code></td>
+<td style="text-align:center"><code>LEFT('abc123', 3)</code></td>
+<td style="text-align:center"><code>abc</code></td>
+<td style="text-align:center">给定字符串从左边取指定长度的子串</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>RIGHT</code></td>
+<td style="text-align:center"><code>RIGHT('abc123', 3)</code></td>
+<td style="text-align:center"><code>123</code></td>
+<td style="text-align:center">给定字符串从右边取指定长度的子串</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>LENGTH</code></td>
+<td style="text-align:center"><code>LENGTH('abc')</code></td>
+<td style="text-align:center"><code>3</code></td>
+<td style="text-align:center">给定字符串的长度</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>LOWER</code></td>
+<td style="text-align:center"><code>LOWER('ABC')</code></td>
+<td style="text-align:center"><code>abc</code></td>
+<td style="text-align:center">给定字符串的小写格式</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>UPPER</code></td>
+<td style="text-align:center"><code>UPPER('abc')</code></td>
+<td style="text-align:center"><code>ABC</code></td>
+<td style="text-align:center">给定字符串的大写格式</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>LTRIM</code></td>
+<td style="text-align:center"><code>LTRIM(' abc')</code></td>
+<td style="text-align:center"><code>abc</code></td>
+<td style="text-align:center">给定字符串左边空格去除后的格式</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>RTRIM</code></td>
+<td style="text-align:center"><code>RTRIM('abc ')</code></td>
+<td style="text-align:center"><code>abc</code></td>
+<td style="text-align:center">给定字符串右边空格去除后的格式</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SUBSTRING</code></td>
+<td style="text-align:center"><code>SUBSTRING('abc123', 2, 3)</code></td>
+<td style="text-align:center"><code>bc1</code></td>
+<td style="text-align:center">给定字符串从指定位置截取指定长度的子串</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>CONCAT</code></td>
+<td style="text-align:center"><code>CONCAT('abc', '123', 'xyz')</code></td>
+<td style="text-align:center"><code>abc123xyz</code></td>
+<td style="text-align:center">将给定的各个字符串拼接成一个新字符串</td>
+</tr>
+</tbody>
+</table>
+<h3 id="日期时间处理函数">日期时间处理函数</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">调用示例</th>
+<th style="text-align:center">示例结果</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>NOW</code></td>
+<td style="text-align:center"><code>NOW()</code></td>
+<td style="text-align:center"><code>2019-08-16 17:10:43</code></td>
+<td style="text-align:center">返回当前日期和时间</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>CURDATE</code></td>
+<td style="text-align:center"><code>CURDATE()</code></td>
+<td style="text-align:center"><code>2019-08-16</code></td>
+<td style="text-align:center">返回当前日期</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>CURTIME</code></td>
+<td style="text-align:center"><code>CURTIME()</code></td>
+<td style="text-align:center"><code>17:10:43</code></td>
+<td style="text-align:center">返回当前时间</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>DATE</code></td>
+<td style="text-align:center"><code>DATE('2019-08-16 17:10:43')</code></td>
+<td style="text-align:center"><code>2019-08-16</code></td>
+<td style="text-align:center">将给定日期和时间值的日期提取出来</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>DATE_ADD</code></td>
+<td style="text-align:center"><code>DATE_ADD('2019-08-16 17:10:43', INTERVAL 2 DAY)</code></td>
+<td style="text-align:center"><code>2019-08-18 17:10:43</code></td>
+<td style="text-align:center">将给定的日期和时间值添加指定的时间间隔</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>DATE_SUB</code></td>
+<td style="text-align:center"><code>DATE_SUB('2019-08-16 17:10:43', INTERVAL 2 DAY)</code></td>
+<td style="text-align:center"><code>2019-08-14 17:10:43</code></td>
+<td style="text-align:center">将给定的日期和时间值减去指定的时间间隔</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>DATEDIFF</code></td>
+<td style="text-align:center"><code>DATEDIFF('2019-08-16', '2019-08-17');</code></td>
+<td style="text-align:center"><code>-1</code></td>
+<td style="text-align:center">返回两个日期之间的天数（负数代表前一个参数代表的日期比较小）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>DATE_FORMAT</code></td>
+<td style="text-align:center"><code>DATE_FORMAT(NOW(),'%m-%d-%Y')</code></td>
+<td style="text-align:center"><code>08-16-2019</code></td>
+<td style="text-align:center">用给定的格式显示日期和时间</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>在 <code>DATE_ADD</code> 或 <code>DATE_SUB</code> 时，需要注意增减的单位。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">时间单位</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>MICROSECOND</code></td>
+<td style="text-align:center">毫秒</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SECOND</code></td>
+<td style="text-align:center">秒</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MINUTE</code></td>
+<td style="text-align:center">分钟</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>HOUR</code></td>
+<td style="text-align:center">小时</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>DAY</code></td>
+<td style="text-align:center">天</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>WEEK</code></td>
+<td style="text-align:center">星期</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MONTH</code></td>
+<td style="text-align:center">月</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>QUARTER</code></td>
+<td style="text-align:center">季度</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>YEAR</code></td>
+<td style="text-align:center">年</td>
+</tr>
+</tbody>
+</table>
+<p><code>DATE_FORMAT</code> 需要记住占位符的含义：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">格式符</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>%b</code></td>
+<td style="text-align:center">简写的月份名称（Jan、Feb、…、Dec)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%D</code></td>
+<td style="text-align:center">带有英文后缀的月份中的日期（0th、1st、2nd、…、31st)）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%d</code></td>
+<td style="text-align:center">数字格式的月份中的日期(00、01、02、…、31)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%f</code></td>
+<td style="text-align:center">微秒（000000-999999）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%H</code></td>
+<td style="text-align:center">二十四小时制的小时 (00-23)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%h</code></td>
+<td style="text-align:center">十二小时制的小时 (01-12)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%i</code></td>
+<td style="text-align:center">数值格式的分钟(00-59)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%M</code></td>
+<td style="text-align:center">月份名（January、February、…、December）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%m</code></td>
+<td style="text-align:center">数值形式的月份(00-12)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%p</code></td>
+<td style="text-align:center">上午或下午（AM代表上午、PM代表下午）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%S</code></td>
+<td style="text-align:center">秒(00-59)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%s</code></td>
+<td style="text-align:center">秒(00-59)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%W</code></td>
+<td style="text-align:center">星期名（Sunday、Monday、…、Saturday）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%w</code></td>
+<td style="text-align:center">周内第几天 （0=星期日、1=星期一、 6=星期六）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%Y</code></td>
+<td style="text-align:center">4位数字形式的年（例如2019）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>%y</code></td>
+<td style="text-align:center">2位数字形式的年（例如19）</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h3 id="数值操作">数值操作</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">调用示例</th>
+<th style="text-align:center">示例结果</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>ABS</code></td>
+<td style="text-align:center"><code>ABS(-1)</code></td>
+<td style="text-align:center"><code>1</code></td>
+<td style="text-align:center">取绝对值</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Pi</code></td>
+<td style="text-align:center"><code>PI()</code></td>
+<td style="text-align:center"><code>3.141593</code></td>
+<td style="text-align:center">返回圆周率</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>COS</code></td>
+<td style="text-align:center"><code>COS(PI())</code></td>
+<td style="text-align:center"><code>-1</code></td>
+<td style="text-align:center">返回一个角度的余弦</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>EXP</code></td>
+<td style="text-align:center"><code>EXP(1)</code></td>
+<td style="text-align:center"><code>2.718281828459045</code></td>
+<td style="text-align:center">返回e的指定次方</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MOD</code></td>
+<td style="text-align:center"><code>MOD(5,2)</code></td>
+<td style="text-align:center"><code>1</code></td>
+<td style="text-align:center">返回除法的余数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>RAND</code></td>
+<td style="text-align:center"><code>RAND()</code></td>
+<td style="text-align:center"><code>0.7537623539136372</code></td>
+<td style="text-align:center">返回一个随机数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SIN</code></td>
+<td style="text-align:center"><code>SIN(PI()/2)</code></td>
+<td style="text-align:center"><code>1</code></td>
+<td style="text-align:center">返回一个角度的正弦</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SQRT</code></td>
+<td style="text-align:center"><code>SQRT(9)</code></td>
+<td style="text-align:center"><code>3</code></td>
+<td style="text-align:center">返回一个数的平方根</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>TAN</code></td>
+<td style="text-align:center"><code>TAN(0)</code></td>
+<td style="text-align:center"><code>0</code></td>
+<td style="text-align:center">返回一个角度的正切</td>
+</tr>
+</tbody>
+</table>
+<h3 id="聚集函数">聚集函数</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数名</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>COUNT</code></td>
+<td style="text-align:center">返回某列的行数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MAX</code></td>
+<td style="text-align:center">返回某列的最大值</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MIN</code></td>
+<td style="text-align:center">返回某列的最小值</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SUM</code></td>
+<td style="text-align:center">返回某列值之和</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>AVG</code></td>
+<td style="text-align:center">返回某列的平均值</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>聚集函数，一般是用来统计信息的。并且聚集函数统计的都是<strong>符合条件语句</strong>查询的。</p>
+<p><code>COUNT</code> 有两种用法：</p>
+<ul>
+<li><code>COUNT(*)</code>：对表中行的数目进行计数，不管列的值是不是 <code>NULL</code>。</li>
+<li><code>COUNT(列名)</code>：对特定的列进行计数，会忽略掉该列为 <code>NULL</code> 的行。</li>
+<li><code>COUNT(1)</code>：每一行记一个数字 <code>1</code> , 然后统计 <code>1</code> 的个数。</li>
+</ul>
+<p>使用 <code>DISTINCT</code> 过滤重复数据。</p>
+<p><code>SELECT (DISTINCT &lt;col_name&gt;) FROM &lt;table_name&gt;;</code></p>
+</blockquote>
+<h2 id="数据库操作">数据库操作</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">DATABASES</span>;							<span class="comment">-- 显示所有数据库。</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> &lt;db_name&gt;; 				<span class="comment">-- 创建数据库，若数据库已存在就会报错。</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> &lt;db_name&gt; <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>;<span class="comment">-- 一般我们会使用这个语句，防止报错。</span></span><br><span class="line"><span class="keyword">USE</span> &lt;db_name&gt;; 							<span class="comment">-- 切换数据库。</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> &lt;db_name&gt;;				<span class="comment">-- 删除数据库，若数据库不存在则报错。</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> &lt;db_name&gt; <span class="keyword">IF</span> <span class="keyword">EXISTS</span>;		<span class="comment">-- 一般我们会用这个语句防止报错。</span></span><br></pre></td></tr></table></figure>
+<h2 id="表操作">表操作</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 可以使用 db_name.table_name 操作其他库中的表。</span></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">TABLES</span>;	<span class="comment">-- 显示所有表</span></span><br><span class="line"><span class="comment">-- 创建表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> &lt;table_name&gt; (</span><br><span class="line">	col_name1 col_type [col_attrs],</span><br><span class="line">	……</span><br><span class="line">	col_namen col_type [col_attrs]</span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 创建表时添加注释</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> &lt;table_name&gt; (</span><br><span class="line">	……</span><br><span class="line">) <span class="keyword">COMMENT</span> <span class="string">'SOME_COMMITS'</span>;</span><br><span class="line"><span class="comment">-- 建表时，如果表已经存在，会报错，可以使用 IF NOT EXISTS 判断</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> &lt;table_name&gt; (</span><br><span class="line">   ……</span><br><span class="line">);</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> [<span class="keyword">IF</span> <span class="keyword">EXISTS</span>] &lt;table_name&gt;;	<span class="comment">-- 删除表</span></span><br><span class="line"><span class="comment">-- 查看表结构(以下几种方式等效)</span></span><br><span class="line"><span class="keyword">DESCRIBE</span> &lt;table_name&gt;;</span><br><span class="line">DESC &lt;table_name&gt;;</span><br><span class="line"><span class="keyword">EXPLAIN</span> &lt;table_name&gt;;</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">COLUMNS</span> <span class="keyword">FROM</span> &lt;table_name&gt;;</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">FIELDS</span> <span class="keyword">FROM</span> &lt;table_name&gt;;</span><br><span class="line"><span class="comment">-- 查看建表信息</span></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> &lt;table_name&gt;;</span><br><span class="line"><span class="comment">-- 对表内结构的修改一般使用 ALTER，并且多条语句可以合并成一条语句，从而提升效率。</span></span><br><span class="line"><span class="comment">-- 修改表名</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> [db1.]table_1 <span class="keyword">RENAME</span> <span class="keyword">TO</span> [db2.]table_2;</span><br><span class="line"><span class="keyword">RENAME</span> <span class="keyword">TABLE</span> [db1.]table_1 <span class="keyword">TO</span> [db2.]table_2, [db3.]table_3 <span class="keyword">TO</span> [db4.]table_4, ……; </span><br><span class="line"><span class="comment">-- 增加列，FIRST 和 AFTER 指定增加列的位置，若不指定，默认在最后添加。</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;tablr_name&gt; <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> &lt;col_name&gt; &lt;col_type&gt; [col_attrs] [&#123;<span class="keyword">FIRST</span> | <span class="keyword">AFTER</span> &lt;col_name&gt;&#125;];</span><br><span class="line"><span class="comment">-- 删除列</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;table_nmae&gt; <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> &lt;col_name&gt;;</span><br><span class="line"><span class="comment">-- 修改列信息</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;table_nmae&gt; <span class="keyword">MODIFY</span> &lt;col_name&gt; &lt;col_type&gt; [&lt;col_attrs&gt;];</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;table_name&gt; <span class="keyword">CHANGE</span> &lt;old_col_name&gt; &lt;new_col_name&gt; &lt;col_type&gt; [&lt;col_attrs&gt;];</span><br><span class="line"><span class="comment">-- 修改列的排列</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;table_name&gt; <span class="keyword">MODIFY</span> &lt;col_name&gt; &lt;col_type&gt; &lt;col_attrs&gt; &#123; <span class="keyword">FIRST</span> | <span class="keyword">AFTER</span> &lt;col_name&gt; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 列的属性，一般会规定列的属性，对列中的数据进行规约，列的属性会有冲突，设定时需要避免</span></span><br><span class="line"><span class="comment">-- 列的默认值</span></span><br><span class="line">&lt;col_name&gt; &lt;col_type&gt; DEAFULT &lt;default_value&gt;;</span><br><span class="line"><span class="comment">-- 列值非空</span></span><br><span class="line">&lt;col_name&gt; &lt;col_type&gt; NOT NULL;</span><br><span class="line"><span class="comment">-- UNIQUE 属性，UNIQUE 属性可以为 NULL，且 NULL 值可以多次出现在列中</span></span><br><span class="line">&lt;col_name&gt; &lt;col_type&gt; UNIQUE;	-- 列声明</span><br><span class="line">UNIQUE [constraint_name] (列名1, 列名2,……);	<span class="comment">-- 表声明</span></span><br><span class="line">UNIQUE KEY [constraint_name] (列名1, 列名2,……);</span><br><span class="line"><span class="comment">-- 主键，主键值默认有 NOT NULL 和 UNIQUE 属性</span></span><br><span class="line">&lt;col_name&gt; &lt;col_type&gt; PRIMARY KEY;	-- 列声明，这种方法能且仅能规定一个主键</span><br><span class="line">PRIMARY KEY(col_name1, col_name2, ……);	<span class="comment">-- 表声明，这种方法可以规定多个主键</span></span><br><span class="line"><span class="comment">-- 外键</span></span><br><span class="line">CONSISTENT [foreign_key_name] FOREIGN KEY(col_name1, col_name2, ……) REFERENCES father_table(father_col1,father_col2, ……);</span><br><span class="line"><span class="comment">-- 列值自增</span></span><br><span class="line">	<span class="comment">-- 一个表中最多有一个具有AUTO_INCREMENT属性的列</span></span><br><span class="line">	<span class="comment">-- 具有AUTO_INCREMENT属性的列必须建立索引。</span></span><br><span class="line">	<span class="comment">-- 不能设定默认值</span></span><br><span class="line">	<span class="comment">-- 一般用来生成一个唯一的主键值</span></span><br><span class="line">&lt;col_name&gt; &lt;col_type&gt; AUTO_INCREMENT;</span><br><span class="line"><span class="comment">-- 列注释</span></span><br><span class="line">&lt;col_name&gt; &lt;col_type&gt; [col_attrs] COMMENT "comments";</span><br><span class="line"><span class="comment">-- ZEROFILL， 在小于规定显示宽度的具有 USINGNED ZEROFILL 属性的整数列上 才会显示补全的效果，并不会影响存储的具体值。若建表时，只声明了ZEROFILL属性，MySQL会为该列自动生成UNSIGNED属性。</span></span><br><span class="line">	<span class="comment">-- 各种 INT 有默认的显示宽度，如果列声明了 UNSIGNED 属性，默认宽度减一。</span></span><br><span class="line">		TINYINT: 4</span><br><span class="line">		INT: 11</span><br><span class="line">&lt;col_name&gt; INT(10) UNSIGNED ZEROFILL;	-- 其中的10就是显示宽度</span><br></pre></td></tr></table></figure>
+<h3 id="增删改查">增删改查</h3>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询(*代表所有列)</span></span><br><span class="line"><span class="keyword">SELECT</span> &lt;col_name1 <span class="keyword">as</span> alias_name1,col_name2 <span class="keyword">as</span> alias_name2,……&gt; <span class="keyword">FROM</span> &lt;table_name&gt;;</span><br><span class="line">	<span class="comment">-- 去重</span></span><br><span class="line">	<span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> &lt;col_names&gt; <span class="keyword">FROM</span> &lt;table_name&gt;;</span><br><span class="line">	<span class="comment">-- 限制，如果起始行大于结果集中的总个数，那么结果集为空。起始行默认为0；</span></span><br><span class="line">	<span class="keyword">SELECT</span> &lt;col_names&gt; <span class="keyword">FROM</span> &lt;table_name&gt; <span class="keyword">LIMIT</span> [&lt;start_col&gt;.]&lt;select_col_number&gt;;</span><br><span class="line">	<span class="comment">-- 排序，默认为升序，可以规定按多个列进行排序，会先按在前的列排序，在按照在后的列排序。</span></span><br><span class="line">	<span class="keyword">SELECT</span> &lt;col_names1&gt; <span class="keyword">FROM</span> &lt;table_name&gt; <span class="keyword">ORDER</span> <span class="keyword">BY</span> &lt;col_names2&gt; [ <span class="keyword">ASC</span> | <span class="keyword">DESC</span> ];</span><br><span class="line">	<span class="comment">-- ORDER 语句必须在 LIMIT 语句前。</span></span><br><span class="line">    <span class="comment">-- 条件语句 WHERE, WHERE 语句中不能出现聚合函数。</span></span><br><span class="line">        <span class="comment">-- 比较操作符</span></span><br><span class="line">            =, !=/(&lt;&gt;), &gt;, &lt;, &lt;=, &gt;=, BETWEEN, NOT BETWEEN</span><br><span class="line">            <span class="comment">-- 匹配列表元素</span></span><br><span class="line">                IN/NOT IN (ele1, ele2, ……);</span><br><span class="line">            <span class="comment">-- 匹配NULL</span></span><br><span class="line">                IS NULL, IS NOT NULL</span><br><span class="line">            <span class="comment">-- 模糊查询</span></span><br><span class="line">                LIKE , NOT LIKE</span><br><span class="line">                <span class="comment">-- %: 任意一个字符串</span></span><br><span class="line">                <span class="comment">-- _：任意一个字符</span></span><br><span class="line">                <span class="comment">-- 转义字符: \% -&gt; '%', \_ -&gt; '_'</span></span><br><span class="line">    	<span class="comment">-- 其他操作符</span></span><br><span class="line">    		+, -, *, /, DIV(取商), %, -(负号)</span><br><span class="line">    	<span class="comment">-- 逻辑操作符</span></span><br><span class="line">     		AND, OR, XOR, ()	<span class="comment">-- 优先级	() &gt; AND &gt; OR</span></span><br><span class="line">     <span class="comment">-- 分组查询，将非分组查询的数据放到分组查询的结果集中会报错，因为把非分组列放到查询列表中会引起争议，导致结果不确定。</span></span><br><span class="line">     <span class="comment">-- 关闭 ONLY_FULL_GROUP_BY 这个模式后就可以将将非分组查询的数据放到分组查询的结果集中。</span></span><br><span class="line">     <span class="comment">-- 分组查询中，会根据 WHERE 语句先过滤数据，再通过 GROUP 语句进行分组。</span></span><br><span class="line">     		GROUP BY &lt;col_name&gt;;</span><br><span class="line">     		<span class="comment">-- 分组条件，就是针对分组的条件</span></span><br><span class="line">     			1. 作用于分组列</span><br><span class="line">     				GROUP BY &lt;col_name&gt; HAVING &lt;col_name&gt;="???";</span><br><span class="line">     			2. 作用于分组的聚合函数</span><br><span class="line">     				GROUP BY &lt;col_name1&gt; HAVING MAX(&lt;col_name2&gt;)&gt;?;</span><br><span class="line">     		<span class="comment">-- 分组排序</span></span><br><span class="line">     			GROUP BY &lt;col_name1&gt; ORDER BY(MAX(&lt;col_name2&gt;)&gt;) [&#123; ASC | DESC &#125;];</span><br><span class="line">     		<span class="comment">-- 嵌套分组，将一个大的分组，再将其按照其中的字段分为更详细的分组。只需要在 GROUP BY 子句中把各个分组列依次写上，用逗号','分隔开就好了，在嵌套分组中，聚合函数作用于最细粒度的分组。</span></span><br><span class="line">     			GROUP BY &lt;col_name_wide&gt;, &lt;col_name_detail&gt;;</span><br><span class="line">     		<span class="comment">-- 注：</span></span><br><span class="line">     			1. 分组列中含有 NULL 值，那么 NULL 也会作为一个独立的分组存在。</span><br><span class="line">     			2. 嵌套分组，聚集函数将作用在最后的那个分组列上。</span><br><span class="line">     			3. 如果查询语句中存在 WHERE 子句和 ORDER BY 子句，那么 GROUP BY 子句必须出现在 WHERE 子句之后， ORDER BY 子句之前。</span><br><span class="line">     			4. 非分组列不能单独出现在检索列表中(可以被放到聚集函数中)。</span><br><span class="line">     			5. GROUP BY子句后也可以跟随表达式(但不能是聚集函数)。MySQL会根据这个表达式的值来对记录进行分组，并且查询列表中的表达式和GROUP BY子句中的表达式必须完全一样。</span><br><span class="line">					<span class="keyword">SELECT</span> <span class="keyword">CONCAT</span>(&lt;col_name1&gt;, <span class="string">"1"</span>), <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> &lt;table_name&gt; <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">CONCAT</span>(&lt;col_name1&gt;, <span class="string">"1"</span>);</span><br><span class="line">				6. WHERE 语句在分组前对数据过滤， HAVING 语句在分组后对分组数据进行过滤。</span><br><span class="line">			<span class="comment">-- 语句顺序</span></span><br><span class="line">				<span class="keyword">SELECT</span> [<span class="keyword">DISTINCT</span>] &lt;col_names&gt;</span><br><span class="line">                [<span class="keyword">FROM</span> table_name]</span><br><span class="line">                [<span class="keyword">WHERE</span> &lt;conditions&gt;]</span><br><span class="line">                [<span class="keyword">GROUP</span> <span class="keyword">BY</span> &lt;col_names&gt; ]</span><br><span class="line">                [<span class="keyword">HAVING</span> &lt;conditions&gt;]</span><br><span class="line">                [<span class="keyword">ORDER</span> <span class="keyword">BY</span> &lt;col_name&gt;]</span><br><span class="line">                [<span class="keyword">LIMIT</span> start_line, <span class="keyword">lines</span>]</span><br><span class="line">	<span class="comment">-- 子查询,子查询语句必须用小括号。</span></span><br><span class="line">		<span class="comment">-- 标量子查询</span></span><br><span class="line">			<span class="keyword">SELECT</span> &lt;col_names&gt; <span class="keyword">FROM</span> &lt;table_name&gt; <span class="keyword">WHERE</span> &lt;col_name = &gt; (&lt;a_select_statement_to_get_a_value&gt;);</span><br><span class="line">		<span class="comment">-- 列子查询</span></span><br><span class="line">			<span class="keyword">SELECT</span> &lt;col_names&gt; <span class="keyword">FROM</span> &lt;table_name&gt; <span class="keyword">WHERE</span> &lt;col_name <span class="keyword">IN</span> &gt; (&lt;a_select_statement_to_get_a_col_values&gt;);</span><br><span class="line">		<span class="comment">-- 行子查询</span></span><br><span class="line">			<span class="keyword">SELECT</span> &lt;col_names1&gt; <span class="keyword">FROM</span> &lt;table_name&gt; <span class="keyword">WHERE</span> &lt;col_names2 = &gt;(&lt;a_select_statement_to_get_a_row_of_col_name2&gt;)</span><br><span class="line">		<span class="comment">-- 表子查询</span></span><br><span class="line">			<span class="keyword">SELECT</span> &lt;col_names1&gt; <span class="keyword">FROM</span> &lt;table_name&gt; <span class="keyword">WHERE</span> &lt;col_names2 <span class="keyword">IN</span> &gt;(&lt;a_select_statement_to_get_rows_of_col_name2&gt;)</span><br><span class="line">		<span class="comment">-- EXIST 子查询, 根据 WHERE 后的查询结果集是否存在判断是否执行前面的查询语句。</span></span><br><span class="line">			<span class="keyword">SELECT</span> &lt;col_names&gt; <span class="keyword">FROM</span> &lt;table_name&gt; <span class="keyword">WHERE</span> [<span class="keyword">NOT</span>] EXIST (&lt;a_select_statement_to_get_some_value&gt;);</span><br><span class="line">		<span class="comment">-- 不相关子查询，相关子查询的区别</span></span><br><span class="line">			<span class="comment">-- 不相关子查询，子查询语句可以独立运行并获取一个值。</span></span><br><span class="line">			<span class="comment">-- 相关子查询语句，子查询语句需要依赖外层查询语句查询的值。</span></span><br><span class="line">		<span class="comment">-- 同一个表的子查询</span></span><br><span class="line">			<span class="comment">-- 在 WHERE 条件语句中不可以出现聚合函数， 但是我们可以通过子查询先获取聚合函数的值。</span></span><br><span class="line">	<span class="comment">-- 连接查询(本质是对几个表的记录进行笛卡尔积)</span></span><br><span class="line">		<span class="keyword">SELECT</span>  [&lt;table_name1&gt;.]&lt;col_names&gt;, [&lt;table_name2&gt;].&lt;col_names&gt; …… <span class="keyword">FROM</span> &lt;table_name1&gt;,&lt;table_name2&gt;;	<span class="comment">-- 如果两个表中有字段名重复的字段，重复字段需要指定表名。我们可以通过 WHERE 子句过滤出我们的想要的结果。</span></span><br><span class="line">		<span class="comment">-- 内连接： 驱动表中的记录若在被驱动表中找不到相应的记录，该记录不会加入最后的结果集。</span></span><br><span class="line">			<span class="keyword">SELECT</span> &lt;col_names&gt; <span class="keyword">FROM</span> &lt;table_name1&gt; [ <span class="keyword">INNER</span> | <span class="keyword">CROSS</span>] <span class="keyword">JOIN</span> &lt;table_name2&gt; <span class="keyword">ON</span> &lt;conditions&gt; [<span class="keyword">WHERE</span> conditions]</span><br><span class="line">        <span class="comment">-- 外连接： 驱动表中的记即使在被驱动表中未找到相应的记录，该记录仍会加入最后的结果集。</span></span><br><span class="line">        	<span class="comment">-- 左外连接： 左侧为驱动表。</span></span><br><span class="line">        	<span class="comment">-- 右外连接： 右侧为驱动表。</span></span><br><span class="line">        		<span class="keyword">SELECT</span> &lt;col_names&gt; <span class="keyword">FROM</span> &lt;table_name1&gt; &#123; <span class="keyword">LEFT</span> | <span class="keyword">RIGHT</span> &#125; [<span class="keyword">OUTER</span>] <span class="keyword">JOIN</span> &lt;table_name2&gt; <span class="keyword">ON</span> &lt;conditions&gt; [<span class="keyword">WHERE</span> conditions]</span><br><span class="line">        <span class="comment">-- 过滤子句</span></span><br><span class="line">        	<span class="comment">-- WHERE： 就是常见的 WHERE 子句，凡是不符合WHERE子句中的过滤条件的记录都不会被加入最后的结果集。</span></span><br><span class="line">        	<span class="comment">-- ON： 对于外连接，若在被驱动表中没有满足 ON 子句中的过滤条件的记录，该记录仍会被加入结果集中，对应的被驱动表中的记录使用 NULL 进行填充。但是对于内连接 WHERE 和 ON 是等价的。</span></span><br><span class="line">        <span class="comment">-- 多表连接(不管是多少个表连接，本质上就是各个表的记录在符合过滤条件下的自由组合)</span></span><br><span class="line">        	Ex. </span><br><span class="line">        		<span class="keyword">SELECT</span> t1.col1, t2..col2, t3.col3 <span class="keyword">FROM</span> t1 <span class="keyword">INNER</span> <span class="keyword">JOIN</span> t2 <span class="keyword">INNER</span> <span class="keyword">JOIN</span> t3 <span class="keyword">WHERE</span> t1.col1 = t2.col2 <span class="keyword">AND</span> t2.col2 = t3.col3;·</span><br><span class="line">        		或</span><br><span class="line">        		<span class="keyword">SELECT</span> t1.col1, t2..col2, t3.col3 <span class="keyword">FROM</span> t1 <span class="keyword">INNER</span> <span class="keyword">JOIN</span> t2 <span class="keyword">ON</span> t2.col2 = t1.col1 <span class="keyword">INNER</span> <span class="keyword">JOIN</span> t3 <span class="keyword">ON</span> t2.col2 = t2.col2；</span><br><span class="line">        <span class="comment">-- 自连接，一个表中的一个字段和和这个表中的另外一个字段相关时，需要用到自连接。对两个自连表可以使用别名来区分。</span></span><br><span class="line">        <span class="comment">-- 连接查询可以使用子查询解决。(MySQL 内部有时会使用连接来处理子查询)</span></span><br><span class="line">    <span class="comment">-- 合并查询(UNION)： 将多个结果集联合成一个结果集</span></span><br><span class="line">    	(<span class="keyword">SELECT</span> &lt;t1_col_1&gt;, &lt;t1_col_2&gt; <span class="keyword">FROM</span> t1 &lt;where_statement&gt;) <span class="keyword">UNION</span> [<span class="keyword">ALL</span>] (<span class="keyword">SELECT</span> &lt;t2_col_1&gt;, &lt;t2_col_2&gt; <span class="keyword">FROM</span> t2 &lt;where_statement&gt;) <span class="keyword">ORDER</span> <span class="keyword">BY</span> &lt;col_of_result&gt; [<span class="keyword">ASC</span> | <span class="keyword">DESC</span>] <span class="keyword">LIMIT</span> &lt;col_number&gt;;</span><br><span class="line">    	<span class="comment">-- 使用UNION连接起来的各个查询语句的查询列表中位置相同的表达式的类型(结果集数据类型)应该是相同的。不匹配的话 MySQL 会自动进行数据类型转换，但是并不建议这么做。</span></span><br><span class="line">    	<span class="comment">-- 一般结果集中显示的列名以第一个语句的结果集的列名为准。</span></span><br><span class="line">    	<span class="comment">-- UNION 会自动对两个结果集中重复的元素执行去重操作，如果不想去重，可以使用 UNION ALL。</span></span><br><span class="line">    	<span class="comment">-- 最后可以对结果集进行排序，但是对其中一个结果集的排序是无意义的，MySQL 规定： 组合查询并不保证最后汇总起来的大结果集中的顺序是按照各个小查询的结果集中的顺序排序的。</span></span><br><span class="line"><span class="comment">-- 插入</span></span><br><span class="line">	 <span class="keyword">INSERT</span> <span class="keyword">INTO</span> &lt;table_name&gt; <span class="keyword">VALUES</span>(col1_val1,col2_val1...), (col1_val2,col2_val2...)...;	<span class="comment">-- 这种方式需要将每个列的值都写上，不能缺少任何一个列的值。</span></span><br><span class="line">	 <span class="keyword">INSERT</span> <span class="keyword">INTO</span> &lt;table_name&gt;(col_names) <span class="keyword">VALUES</span>(col_vals1), (col_vals2)...;	<span class="comment">-- col_vals 中的值与col_names 中的值是一一对应的。但是只有满足以下两种条件的条件的列可以省略：</span></span><br><span class="line">	 	<span class="comment">-- 1. 该列允许 NULL 值。</span></span><br><span class="line">	 	<span class="comment">-- 2. 该列有默认值或是自增列。</span></span><br><span class="line">	 <span class="comment">-- 在规定了 UNIQUE 的列中，若插入的数据已存在，则MySQL就会报错。</span></span><br><span class="line">	 	<span class="comment">-- 我们可以使用 INSERT IGNORE 语句来进行插入，已经存在的行，不会被插入表中。</span></span><br><span class="line">	 	<span class="comment">-- 也可以使用 INSERT ON DUPLICATE KEY UPDATE 对重复记录进行更新。</span></span><br><span class="line">	 	<span class="comment">-- 这两条语句在插入多条记录时，如果不希望有报错信息很有用。</span></span><br><span class="line"><span class="comment">-- 删除数据</span></span><br><span class="line">	<span class="keyword">DELETE</span> <span class="keyword">FROM</span> &lt;table_name&gt; [where_statement] [order_statement] [limit_statement];	<span class="comment">-- 可以通过 LIMIT 和 ORDER 语句进行限制。</span></span><br><span class="line"><span class="comment">-- 更新数据</span></span><br><span class="line">	<span class="keyword">UPDATE</span> &lt;table_name&gt; <span class="keyword">SET</span> &lt;col_name1&gt;=<span class="string">"col_val1"</span>, &lt;col_name2&gt;=<span class="string">"col_val2"</span>... [where_statement] [order_statement] [limit_statement];	<span class="comment">-- 也可以通过 LIMIT 和 ORDER 语句进行限制。</span></span><br></pre></td></tr></table></figure>
+<h2 id="视图">视图</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 通俗的理解，视图就是查询语句的别名。</span></span><br><span class="line"><span class="comment">-- 创建视图</span></span><br><span class="line">	<span class="keyword">CREATE</span> <span class="keyword">VIEW</span> &lt;view_name&gt; <span class="keyword">AS</span> &lt;select_statement&gt;;</span><br><span class="line">	<span class="keyword">CREATE</span> <span class="keyword">VIEW</span> &lt;view_name&gt;(view_col1, view_col2...) <span class="keyword">AS</span> <span class="keyword">SELECT</span> &lt;tb_col1&gt;, &lt;tb_col2&gt;... <span class="keyword">FROM</span> tb;	<span class="comment">-- 这种方法需要注意视图中的字段应该与查询表达式一一对应。</span></span><br><span class="line"><span class="comment">-- 查询视图</span></span><br><span class="line">	<span class="comment">-- 视图就是一个虚拟表，对视图的所有操作都会被映射到底层的表上。所有的视图并非维护在存储器中，查询视图时会转换为对底层表的查询语句，然后再执行。</span></span><br><span class="line">	<span class="comment">-- 我们完全可以将视图当做表使用。并且视图可以简化 SQL 语句的书写，对视图的操作更加直观，不必考虑底层实现细节。</span></span><br><span class="line">	<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> &lt;view_name&gt;;</span><br><span class="line"><span class="comment">-- 查看视图</span></span><br><span class="line">	<span class="keyword">SHOW</span> <span class="keyword">TABLES</span>;	<span class="comment">-- 查看数据库中的视图。因为视图是一张虚拟表，不能与其他表名相同。</span></span><br><span class="line">	<span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">VIEW</span> &lt;view_name&gt;;	<span class="comment">-- 查看视图创建信息，与查看表结构类似。</span></span><br><span class="line"><span class="comment">-- 操作视图(不建议直接操作)</span></span><br><span class="line">	<span class="comment">-- 有些视图不光是可以查询的，还是可以更新的。对其进行 INSERT、 DELETE、 UPDATE 就是对底层表的增、删、改。</span></span><br><span class="line">	<span class="comment">-- 含有以下几种语句的视图是不可以进行增删改的。</span></span><br><span class="line">		<span class="comment">-- 1. 聚集函数</span></span><br><span class="line">		<span class="comment">-- 2. DISTINCT</span></span><br><span class="line">		<span class="comment">-- 3. GROUP BY</span></span><br><span class="line">		<span class="comment">-- 4. HAVING</span></span><br><span class="line">		<span class="comment">-- 5. UNION</span></span><br><span class="line">		<span class="comment">-- 6. 子查询</span></span><br><span class="line">		<span class="comment">-- 7. 连接查询</span></span><br><span class="line"><span class="comment">-- 删除视图</span></span><br><span class="line">	<span class="keyword">DROP</span> <span class="keyword">VIEW</span> &lt;view_name&gt;;</span><br></pre></td></tr></table></figure>
+<h2 id="变量与语句结束分隔符">变量与语句结束分隔符</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 变量， MySQL 规定在自定义变量前必须加一个 @</span></span><br><span class="line">	<span class="comment">-- 查看变量</span></span><br><span class="line">		<span class="keyword">SELECT</span> @<span class="keyword">var</span>;</span><br><span class="line">	<span class="comment">-- 变量赋值</span></span><br><span class="line">		<span class="keyword">SET</span> @<span class="keyword">var</span> = <span class="string">"str"</span>;	<span class="comment">-- 可以将常量赋值给变量，当然也可以将变量的值赋值给变量。</span></span><br><span class="line">		<span class="keyword">SET</span> @<span class="keyword">var</span> = (select_statement);	<span class="comment">-- 可以将查询结果的值(结果仅有一个值)赋值给变量。</span></span><br><span class="line">		&lt;select_statement&gt; into @var;	-- 与上面的语句效果相同</span><br><span class="line">		<span class="keyword">SELECT</span> &lt;col_name1&gt;,&lt;col_name2&gt; <span class="keyword">FROM</span> &lt;table_name&gt; <span class="keyword">LIMIT</span> <span class="number">1</span> <span class="keyword">INTO</span> @var1, @var2;	<span class="comment">-- 将多个结果赋值给多个变量。</span></span><br><span class="line"><span class="comment">-- 语句分隔符：表示一个语句的的结束，当敲下回车时，会检测是否含有';'、'\g'或'\G'，如果存在，会将内容发送至服务端。但是这样我们在同时执行多个语句时，就需要在一行中书写多条语句。为此，我们可以使用语句结束分隔符，使客户端在遇到这几个符号并回车时，不会直接发送到服务器，只有在遇到我们定义的语句结束分隔符时才会发送所有的语句。</span></span><br><span class="line">	delimiter EOF	<span class="comment">-- 定义与语句结束符</span></span><br><span class="line">	<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t1 <span class="keyword">LIMIT</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t2 <span class="keyword">LIMIT</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t3 <span class="keyword">LIMIT</span> <span class="number">1</span>;</span><br><span class="line">    EOF	<span class="comment">-- 遇到EOF后，将上面三条语句同时发送给服务器。</span></span><br></pre></td></tr></table></figure>
+<h2 id="存储例程">存储例程</h2>
+<h3 id="存储函数与存储过程">存储函数与存储过程</h3>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 存储程序(Stored Programe)：用来封装一些语句，然后给用户提供一种简单的方式来调用这个存储程序，从而间接的执行这些语句。可以分为以下几种类型：</span></span><br><span class="line">	1. 存储例程(Stored Routine)</span><br><span class="line">		(1) 存储函数(Stored Function)</span><br><span class="line">		(2) 存储过程(Stored Procedure)</span><br><span class="line">	2. 触发器(Trigger)</span><br><span class="line">	3. 事件(Event)</span><br><span class="line"><span class="comment">-- 存储例程</span></span><br><span class="line">	<span class="comment">-- 存储函数：本质就是函数</span></span><br><span class="line">		<span class="comment">-- 创建存储函数</span></span><br><span class="line">			<span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> &lt;function_name&gt;)(param_name param_type, ...)</span><br><span class="line">			<span class="keyword">RETURN</span> &lt;return_value_type&gt;</span><br><span class="line">			<span class="keyword">BEGIN</span></span><br><span class="line">				&lt;functoion_body&gt;</span><br><span class="line">			<span class="keyword">END</span></span><br><span class="line">			<span class="comment">-- 参数</span></span><br><span class="line">				<span class="comment">-- 函数参数不可以指定默认值，我们在调用函数的时候，必须显式的指定所有的参数，并且参数类型也一定要匹配</span></span><br><span class="line">			<span class="comment">-- 函数体</span></span><br><span class="line">				<span class="comment">-- 变量：在函数体中使用使用局部变量需要先声明。但是函数体中的局部变量不是用@标识。同样，也可以使用自定义变量，使用方法和之前的自定义变量一致，这些自定义变量可以在函数体外使用。</span></span><br><span class="line">					<span class="keyword">DECLARE</span> var1, var2... &lt;data_type&gt; [<span class="keyword">DEFAULT</span> &lt;val&gt;]; <span class="comment">--局部变量</span></span><br><span class="line">				<span class="comment">-- 判断语句</span></span><br><span class="line">					IF &lt;bool_statement&gt; THEN</span><br><span class="line">						statements...</span><br><span class="line">					[ELSEIF &lt;bool_statement&gt; THEN</span><br><span class="line">						statements...]</span><br><span class="line">					...</span><br><span class="line">					[ELSE</span><br><span class="line">                     	statemants]</span><br><span class="line">                     <span class="keyword">END</span> <span class="keyword">IF</span>;</span><br><span class="line">                 <span class="comment">-- 循环语句</span></span><br><span class="line">                 	<span class="comment">-- WHIEL 语句</span></span><br><span class="line">                        WHILE &lt;bool_statements&gt; DO</span><br><span class="line">                            statements...</span><br><span class="line">                        <span class="keyword">END</span> WHIEL;</span><br><span class="line">                    <span class="comment">-- REPEAT 语句(相当于其他语言中的do...while语句，至少会执行一次循环语句)</span></span><br><span class="line">                    	REPEAT</span><br><span class="line">                    		statements...</span><br><span class="line">                    	UNTIL &lt;bool_statement&gt; END REPEAT;</span><br><span class="line">                   	<span class="comment">-- LOOP 语句</span></span><br><span class="line">                   		LOOP</span><br><span class="line">                   			statements...</span><br><span class="line">                   		<span class="keyword">END</span> <span class="keyword">LOOP</span>;</span><br><span class="line">                   		<span class="comment">-- LOOP 没有终止条件，我们可以在循环体中增减判断条件，满足某种条件是直接调用 RETURN 语句结束循环。</span></span><br><span class="line">                   		<span class="comment">-- 如果仅仅想结束循环，我们可以使用 LEAVE，但是使用前。需要在 LOOP 前放置一个标记。</span></span><br><span class="line">                   		<span class="comment">-- flag：相当于为这个循环打了一个名叫flag的标记，然后在对应的END LOOP语句后边也把这个标记名flag给写上了。在存储函数的函数体中使用LEAVE flag语句来结束flag这个标记所代表的循环。</span></span><br><span class="line">                   		<span class="comment">-- 其实也可以在BEGIN ... END、REPEAT和WHILE这些语句上打标记，标记主要是为了在这些语句发生嵌套时可以跳到指定的语句中使用的。</span></span><br><span class="line">                   			flag:LOOP</span><br><span class="line">                   				IF &lt;bool_statement&gt; THEN</span><br><span class="line">                   					LEAVE flag;</span><br><span class="line">                   				<span class="keyword">END</span> <span class="keyword">IF</span>;</span><br><span class="line">                   				statements...</span><br><span class="line">                   			<span class="keyword">END</span> <span class="keyword">LOOP</span>;</span><br><span class="line">		<span class="comment">-- 调用存储函数</span></span><br><span class="line">			<span class="keyword">SELECT</span> &lt;function_name&gt;(params...);</span><br><span class="line">		<span class="comment">-- 查看存储函数</span></span><br><span class="line">			<span class="keyword">SHOW</span> <span class="keyword">FUNCTION</span> <span class="keyword">STATUS</span> [like_statement];	<span class="comment">-- 查看已定义定义的存储函数</span></span><br><span class="line">			<span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> &lt;function_name&gt;;	<span class="comment">-- 查看函数的创建语句</span></span><br><span class="line">		<span class="comment">-- 删除函数</span></span><br><span class="line">			<span class="keyword">DROP</span> <span class="keyword">FUNCTION</span> &lt;function_name&gt;;</span><br><span class="line">	<span class="comment">-- 存储过程：相较于存储函数会返回一个值，存储过程更倾向于单纯的执行这些语句，所以不需要声明一个返回值。存储过程更偏向于执行某些过程，并不能用在表达式中。并且存储过程中所有 SELECT 语句产生的结果集将会被显示到客户端中。</span></span><br><span class="line">		<span class="comment">-- 创建存储过程</span></span><br><span class="line">			<span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> &lt;procedure_name&gt;([[<span class="keyword">IN</span> | <span class="keyword">OUT</span> | INOUT]param_name param_type,...])</span><br><span class="line">			<span class="keyword">BEGIN</span></span><br><span class="line">				statements...</span><br><span class="line">			<span class="keyword">END</span>;</span><br><span class="line">			<span class="comment">-- 参数：</span></span><br><span class="line">				<span class="comment">-- IN，实参可以不是变量，用于向存储过程传递数据，如果参数在存储过程中被修改，调用者不可见。存储函数仅支持 IN 函数。</span></span><br><span class="line">				<span class="comment">-- OUT，实参必须是变量，用于将存储过程中的数据赋值给 OUT 参数，存储过程结束后，调用者可以访问到 OUT 参数。如果在存储过程未执行过程中还未对参数赋值时，读取参数的值，值为 NULL</span></span><br><span class="line">				<span class="comment">-- INOUT，实参必须是变量，结合了 IN 与 OUT 的特点既可以向存储过程中传递数，也可以存放存储过程中产生的数据，方便调用者使用。</span></span><br><span class="line">		<span class="comment">-- 调用存储过程</span></span><br><span class="line">			<span class="keyword">CALL</span> &lt;procedure_name&gt;([param_name param_type,...]);</span><br><span class="line">		<span class="comment">-- 查看存储过程</span></span><br><span class="line">            <span class="keyword">SHOW</span> <span class="keyword">PROCEDURE</span> <span class="keyword">STATUS</span> [like_statement];	<span class="comment">-- 查看定义的存储过程</span></span><br><span class="line">            <span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> &lt;procedure_name&gt;;	<span class="comment">-- 查看存储过程创建语句</span></span><br><span class="line">		<span class="comment">-- 删除存储过程</span></span><br><span class="line">			<span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> &lt;procedure_name&gt;;</span><br><span class="line">	<span class="comment">-- 存储函数与存储过程差别</span></span><br><span class="line">		<span class="comment">-- 存储函数需要显式使用 RETURNS 表明返回值类型。函数体中也必须使用 RETURN 语句显式指定返回值。存储过程可以通过 IN、INOUT 来返回多个结果。</span></span><br><span class="line">		<span class="comment">-- 存储函数仅支持 IN 类型的参数。</span></span><br><span class="line">		<span class="comment">-- 存储函数执行过程中的 SELECT 语句的结果集不会显示到客户端，但是存储过程会。</span></span><br><span class="line">		<span class="comment">-- 存储函数可以在表达式中调用，但是存储过程只能使用 CALL 语句调用。</span></span><br><span class="line">	<span class="comment">-- 触发器：在一些操作过后，MySQL 会自动调用一些语句进行自动化处理。</span></span><br><span class="line">		<span class="comment">-- 创建触发器</span></span><br><span class="line">			<span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> &lt;triggrt_name&gt;</span><br><span class="line">			&#123; <span class="keyword">BEFORE</span> | <span class="keyword">AFTER</span> &#125;	<span class="comment">-- 在具体语句之前还是之后</span></span><br><span class="line">			&#123; <span class="keyword">INSERT</span> | <span class="keyword">DELETE</span> | <span class="keyword">UPDATE</span> &#125;	<span class="comment">-- MySQL仅支持这三种触发器。</span></span><br><span class="line">			<span class="keyword">ON</span> &lt;table_name&gt;</span><br><span class="line">			<span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span>	<span class="comment">-- 代指要操作的记录，INSERT 中代指要插入的记录，DELETE 和 UPDATE 中代指符合条件的记录。</span></span><br><span class="line">			<span class="keyword">BEGIN</span></span><br><span class="line">				statements</span><br><span class="line">			<span class="keyword">END</span></span><br><span class="line">			<span class="comment">-- 通过 NEW/OLD 读取操作的记录</span></span><br><span class="line">				<span class="comment">-- INSERT 中 NEW 有效，代指准备插入的记录。</span></span><br><span class="line">				<span class="comment">-- DELETE 中 OLD 有效，代指准备删除的记录。</span></span><br><span class="line">				<span class="comment">-- UPDATE 中 NEW/OLD 都有效，NEW 代指要更新的记录，OLD 代指更新前的记录。</span></span><br><span class="line">			<span class="comment">-- 注： </span></span><br><span class="line">				<span class="comment">-- 触发器中不能有输出结果集的语句。</span></span><br><span class="line">				<span class="comment">-- NEW代表记录的列的值可以被更改，OLD代表记录的列的值无法更改。</span></span><br><span class="line">				<span class="comment">-- 在 AFTER 语句中，因为数据已经被插入了，所以无法对 NEW 记录中的数据赋值。</span></span><br><span class="line">				<span class="comment">-- 如果 BEFORE 触发器执行过程中报错，对应的语句也就无法执行。如果对应的语句执行时报错，对应的 AFTER 语句将无法执行。</span></span><br><span class="line">		<span class="comment">-- 查看触发器</span></span><br><span class="line">			<span class="keyword">SHOW</span> <span class="keyword">TRIGGERS</span>;</span><br><span class="line">			<span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> &lt;trigger_name&gt;;</span><br><span class="line">		<span class="comment">-- 删除触发器</span></span><br><span class="line">			<span class="keyword">DROP</span> <span class="keyword">TRIGGER</span> &lt;trigger_name&gt;;</span><br><span class="line">	<span class="comment">-- 事件：每隔一段时间自动执行的任务。但是默认情况下，MySQL 并不会自动执行事件，需要我们手动开启 SET GLOBAL event_scheduler = ON; ，并且事件在执行完之后会自动删除，我们可以设置系统参数进行保留。</span></span><br><span class="line">		<span class="comment">-- 创建事件</span></span><br><span class="line">			<span class="keyword">CREATE</span> <span class="keyword">EVENT</span> &lt;event_name&gt;</span><br><span class="line">            <span class="keyword">ON</span> SCHEDULE</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">AT</span> &lt;a_concrete_time&gt;| </span><br><span class="line">                EVERY &lt;time_interval&gt; [STARTS datetime][<span class="keyword">END</span> datetime]</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">DO</span></span><br><span class="line">            <span class="keyword">BEGIN</span></span><br><span class="line">                statements;</span><br><span class="line">            <span class="keyword">END</span></span><br><span class="line">            <span class="comment">-- time_interval 可以设置为 EVERY 1 YEAR， 有HOUR、YEAR、QUARTER、MONTH、DAY、HOUR、 MINUTE、WEEK、SECOND、YEAR_MONTH、DAY_HOUR、DAY_MINUTE、DAY_SECOND、HOUR_MINUTE、HOUR_SECOND、MINUTE_SECOND等时间间隔单位。</span></span><br><span class="line">        <span class="comment">-- 查看事件</span></span><br><span class="line">        	<span class="keyword">SHOW</span> <span class="keyword">EVENTS</span>;</span><br><span class="line">        	<span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">EVENT</span> &lt;event_name&gt;;</span><br><span class="line">        <span class="comment">-- 删除事件</span></span><br><span class="line">        	<span class="keyword">DROP</span> <span class="keyword">EVENT</span> &lt;event_name&gt;;</span><br></pre></td></tr></table></figure>
+<h2 id="游标">游标</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 游标：在存储过程中，用来标记结果集中我们正在访问的一条记录的位置。</span></span><br><span class="line">	<span class="comment">-- 我们可以根据游标的位置取出对应的记录，取出后，游标会自动移动至下一条记录。</span></span><br><span class="line">	<span class="comment">-- 游标的使用步骤</span></span><br><span class="line">		<span class="comment">-- 1. 创建游标</span></span><br><span class="line">		<span class="comment">-- 2. 打开游标</span></span><br><span class="line">		<span class="comment">-- 3. 通过游标访问记录</span></span><br><span class="line">		<span class="comment">-- 4. 关闭游标</span></span><br><span class="line">	<span class="comment">-- 创建游标，局部变量的声明要放在游标之前</span></span><br><span class="line">		<span class="keyword">DECLARE</span> &lt;cursor_name&gt; <span class="keyword">CURSOR</span> <span class="keyword">FOR</span> &lt;select_statement&gt;;</span><br><span class="line">	<span class="comment">-- 打开和关闭游标</span></span><br><span class="line">		&#123; OPEN | CLOSE &#125; &lt;cursor_name&gt;;	-- 关闭游标将会释放相关资源，使用完就可以将其关闭，如果不关闭，在 END 语句结束后也会释放资源。</span><br><span class="line">	<span class="comment">-- 使用游标获取记录</span></span><br><span class="line">		FETCH &lt;cousor_name&gt; INTO var1, var2, var3;	-- 获取记录中的值，并将其按列的顺序赋值给变量，变量的类型和数量和列应该相同</span><br><span class="line">	<span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> proc1()</span><br><span class="line">    <span class="keyword">BEGIN</span></span><br><span class="line">        <span class="keyword">DECLARE</span> &lt;vars var_type&gt;;</span><br><span class="line">        <span class="keyword">DECLARE</span> &lt;cursor_name&gt; <span class="keyword">CURSOR</span> <span class="keyword">FOR</span> &lt;select_statement&gt;;</span><br><span class="line">        OPEN &lt;cursor_name&gt;;</span><br><span class="line">        FETCH &lt;cursor_name&gt; INTO &lt;vars&gt;;	-- 游标会自动移动到下一个</span><br><span class="line">        <span class="keyword">SELECT</span> &lt;vars&gt;;</span><br><span class="line">    <span class="keyword">END</span>;</span><br><span class="line">    <span class="comment">-- 遍历策略</span></span><br><span class="line">    	<span class="comment">-- 先 count() 查询语句结果集中的记录数量。按照数量进行 WHIEL 循环。</span></span><br><span class="line">    	<span class="comment">-- 使用 FETCH 结束触发事件。</span></span><br><span class="line">    		<span class="keyword">DECLARE</span> CONTINUE <span class="keyword">HANDLER</span> <span class="keyword">FOR</span> <span class="keyword">NOT</span> <span class="keyword">FOUND</span> </span><br><span class="line">    		[<span class="keyword">BEGIN</span>]</span><br><span class="line">    			&lt;handle_statement&gt; <span class="comment">-- 可以是一条或多条语句</span></span><br><span class="line">    		[<span class="keyword">END</span>]</span><br></pre></td></tr></table></figure>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/MySQL/">MySQL</a>
+		  
+			<a href="/tags/Juejin-Book/">Juejin Book</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/10/24/Java8%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4API/">
+        <span class="next-text nav-default">Java8中的时间API</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2018 -
+    
+    2020
+    <span class="footer-author">Fallen-Angle.</span><br>
+	<span>角落之中，窥视天空</span><br>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
