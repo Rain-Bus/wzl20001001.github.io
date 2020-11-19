@@ -42,17 +42,17 @@
 <meta property="og:site_name" content="Falle-Angle">
 <meta property="og:description" content="整型数    类型 占用的存储空间（单位：字节） 无符号数取值范围 有符号数取值范围 含义     TINYINT 1 0 ~ 2⁸-1 -2⁷ ~ 2⁷-1 非常小的整数   SMALLINT 2 0 ~ 2¹⁶-1 -2¹⁵ ~ 2¹⁵-1 小的整数   MEDIUMINT 3 0 ~ 2²⁴-1 -2²³ ~ 2²³-1 中等大小的整数   INT（别名：INTEGER） 4 0 ~ 2³²">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://blog.fallen-ange.com/.com//16d6779ae10315f9.jpg">
-<meta property="og:image" content="http://blog.fallen-ange.com/.com//16d6779ad10263a2.jpg">
-<meta property="og:image" content="http://blog.fallen-ange.com/.com//16d6779ad21ff99f.jpg">
-<meta property="og:image" content="http://blog.fallen-ange.com/.com//16d6779ad395a41d.jpg">
+<meta property="og:image" content="http://blog.fallen-ange.com/2020/11/19/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E7%9A%84%EF%BC%9A%E4%BB%8E%E9%9B%B6%E8%9B%8B%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0MySQL/16d6779ae10315f9.jpg">
+<meta property="og:image" content="http://blog.fallen-ange.com/2020/11/19/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E7%9A%84%EF%BC%9A%E4%BB%8E%E9%9B%B6%E8%9B%8B%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0MySQL/16d6779ad10263a2.jpg">
+<meta property="og:image" content="http://blog.fallen-ange.com/2020/11/19/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E7%9A%84%EF%BC%9A%E4%BB%8E%E9%9B%B6%E8%9B%8B%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0MySQL/16d6779ad21ff99f.jpg">
+<meta property="og:image" content="http://blog.fallen-ange.com/2020/11/19/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E7%9A%84%EF%BC%9A%E4%BB%8E%E9%9B%B6%E8%9B%8B%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0MySQL/16d6779ad395a41d.jpg">
 <meta property="article:published_time" content="2020-11-19T06:48:17.000Z">
-<meta property="article:modified_time" content="2020-11-19T06:58:23.020Z">
+<meta property="article:modified_time" content="2020-11-19T07:15:25.766Z">
 <meta property="article:author" content="Fallen-Angle">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="Juejin Book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.fallen-ange.com/.com//16d6779ae10315f9.jpg">
+<meta name="twitter:image" content="http://blog.fallen-ange.com/2020/11/19/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E7%9A%84%EF%BC%9A%E4%BB%8E%E9%9B%B6%E8%9B%8B%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0MySQL/16d6779ae10315f9.jpg">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
@@ -227,7 +227,7 @@
 <p>其中 M(1~255) 代表该小数的总体有效位。 D(0~30) 代表小数位的有效位数。其中M 的值必须不小于 D 。如果不规定，就按默认的最大值进行存储。</p>
 <p>虽然可以对浮点数位数进行指定，但是存储的空间都是不变的。</p>
 <p>浮点数的结构如下，是凭借指数和尾数来进行存储的(二进制的科学计数法)，对于一些无法直接转换成二进制的数，是不精确的。</p>
-<p><img src="/.com//16d6779ae10315f9.jpg" alt="浮点数存储结构"></p>
+<img src="/2020/11/19/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E7%9A%84%EF%BC%9A%E4%BB%8E%E9%9B%B6%E8%9B%8B%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0MySQL/16d6779ae10315f9.jpg" class="" title="浮点数存储结构">
 </blockquote>
 <h3 id="定点数">定点数</h3>
 <blockquote>
@@ -251,9 +251,9 @@
 </table>
 <blockquote>
 <p>定点数的存储结构如下：</p>
-<p><img src="/.com//16d6779ad10263a2.jpg" alt="定点数存储结构"></p>
+<img src="/2020/11/19/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E7%9A%84%EF%BC%9A%E4%BB%8E%E9%9B%B6%E8%9B%8B%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0MySQL/16d6779ad10263a2.jpg" class="" title="定点数存储结构">
 <p>其中，从小数点位置起，向前向后每九个十进制位划分为一组进行存储。</p>
-<p><img src="/.com//16d6779ad21ff99f.jpg" alt="定点数存储结构"></p>
+<img src="/2020/11/19/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E7%9A%84%EF%BC%9A%E4%BB%8E%E9%9B%B6%E8%9B%8B%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0MySQL/16d6779ad21ff99f.jpg" class="" title="定点数存储结构">
 <p>其中十进制位数对应存储字节数如下表：</p>
 <table>
 <thead>
@@ -340,7 +340,7 @@
 <blockquote>
 <p><code>MySQL5.6.4</code> 之后开始<code>TIME</code>、<code>DATETIME</code>、<code>TIMESTAMP</code>支持六位小数位秒(毫秒，微秒）。</p>
 <p><strong>例</strong>：<code>DATETIME(3)</code> 表示精确到微秒， <code>DATETIME(5)</code> 表示精确到 10 微秒，默认 <code>DATETIME</code> 为 <code>DATETIME(0)</code>，即精确到秒。</p>
-<p><img src="/.com//16d6779ad395a41d.jpg" alt="时间存储"></p>
+<img src="/2020/11/19/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E7%9A%84%EF%BC%9A%E4%BB%8E%E9%9B%B6%E8%9B%8B%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0MySQL/16d6779ad395a41d.jpg" class="" title="时间存储">
 <p>其中占用的存储空间与定点数占用的空间类似。需要在原本的存储空间上占用额外的空间。</p>
 <table>
 <thead>
